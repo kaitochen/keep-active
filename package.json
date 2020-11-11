@@ -1,0 +1,24 @@
+{
+  "name": "keep-active",
+  "version": "0.1.0",
+  "description": "modify the keep-alive of vue framework",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kaitochen/keep-active.git"
+  },
+  "keywords": [
+    "vue",
+    "keep-alive",
+    "keep-active"
+  ],
+  "author": "kaitochen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kaitochen/keep-active/issues"
+  },
+  "homepage": "https://github.com/kaitochen/keep-active#readme"
+}
