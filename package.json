@@ -1,6 +1,6 @@
 {
   "name": "vue-keep-active",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "modify the keep-alive of vue framework",
   "main": "index.js",
   "scripts": {

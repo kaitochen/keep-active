@@ -1,15 +1,15 @@
 const _toString = Object.prototype.toString;
-export function isDef(v) {
+export const isDef = (v) => {
   return v !== undefined && v !== null;
-}
-export function isRegExp(v) {
+};
+export const isRegExp = (v) => {
   return _toString.call(v) === "[object RegExp]";
-}
-export function remove(arr, item) {
+};
+export const remove = (arr, item) => {
   if (arr.length) {
     const index = arr.indexOf(item);
     if (index > -1) {
       return arr.splice(index, 1);
     }
   }
-}
+};

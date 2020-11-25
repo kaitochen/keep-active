@@ -1,12 +1,13 @@
 import { isRegExp, remove } from "./util";
 import { getFirstComponentChild } from "./helpers/index";
 
-function getComponentName(opts) {
+function getComponentName(key, opts) {
   return (
-    opts &&
-    ((opts.propsData && opts.propsData.route) ||
-      opts.Ctor.options.name ||
-      opts.tag)
+    key ||
+    (opts &&
+      ((opts.propsData && opts.propsData.route) ||
+        opts.Ctor.options.name ||
+        opts.tag))
   );
 }
 
@@ -27,7 +28,10 @@ function pruneCache(keepAliveInstance, filter) {
   for (const key in cache) {
     const cachedNode = cache[key];
     if (cachedNode) {
-      const name = getComponentName(cachedNode.componentOptions);
+      const name = getComponentName(
+        cachedNode.key,
+        cachedNode.componentOptions
+      );
       if (name && !filter(name)) {
         pruneCacheEntry(cache, key, keys, _vnode);
       }
@@ -53,7 +57,7 @@ export default {
   props: {
     include: patternTypes,
     exclude: patternTypes,
-    max: [String, Number]
+    max: [String, Number],
   },
 
   created() {
@@ -68,21 +72,23 @@ export default {
   },
 
   mounted() {
-    this.$watch("include", val => {
-      pruneCache(this, name => matches(val, name));
+    this.$watch("include", (val) => {
+      pruneCache(this, (name) => matches(val, name));
     });
-    this.$watch("exclude", val => {
-      pruneCache(this, name => !matches(val, name));
+    this.$watch("exclude", (val) => {
+      pruneCache(this, (name) => !matches(val, name));
     });
   },
 
   render() {
     const slot = this.$slots.default;
     const vnode = getFirstComponentChild(slot);
+
     const componentOptions = vnode && vnode.componentOptions;
     if (componentOptions) {
       // check pattern
-      const name = getComponentName(componentOptions);
+      const name = getComponentName(vnode.key, componentOptions);
+
       const { include, exclude } = this;
       if (
         // not included
@@ -118,5 +124,5 @@ export default {
       vnode.data.keepAlive = true;
     }
     return vnode || (slot && slot[0]);
-  }
+  },
 };
